@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Bookings</title>
+        <link rel="stylesheet" href="tur.tickets.css">
+        <meta charset="utf-8">
+        <!--<meta name=viewport
+        content=width=device-width,initial scale=1-->
+
+        <script type="text/javascript">
+            
+
+            function addToSummeryTable(){
+
+        // get date from date input
+        const date = document.getElementById("calendar").value;
+
+        // validate date is enter or not
+        if(date != 0){ 
+
+        // initialize variavle for head count
+        let localAdult = 0;
+        let localChild = 0;
+        let foreignAdult = 0;
+        let foreignChild = 0;
+        let infant = 0;
+        let allVisiters = 0;
+
+        // Get values from head cound field
+        localAdult = parseInt(document.getElementById('localAdult').textContent);
+        localChild = parseInt(document.getElementById("localChild").textContent);
+        foreignAdult = parseInt(document.getElementById("foreignAdult").textContent);
+        foreignChild = parseInt(document.getElementById("foreignChild").textContent);
+        infant = parseInt(document.getElementById("infant").textContent);
+
+        // validation of head count
+        if(localAdult || localChild || foreignAdult || foreignChild  || infant !=  0){ 
+
+        // Get Calculation of all visitors 
+        allVisiters = localAdult + localChild + foreignAdult + foreignChild + infant;
+
+        // initialize vatiables for store selected time durations by user
+        let time1;
+        let time2;
+        let time3;
+        let time4;
+        let time5;
+        let time6;
+        let time7;
+        let time8;
+        let time9;
+        let time10;
+
+        // Fetch and store check boxes values
+        time1 = document.getElementById("time1");
+        time2 = document.getElementById("time2");
+        time3 = document.getElementById("time3");
+        time4 = document.getElementById("time4");
+        time5 = document.getElementById("time5");
+        time6 = document.getElementById("time6");
+        time7 = document.getElementById("time7");
+        time8 = document.getElementById("time8");
+        time9 = document.getElementById("time9");
+        time10 = document.getElementById("time10");
+
+
+        // check whether user clicked or not each check boxes
+        // parseInt() method is used convert string value to integer
+        // replace() method is used to detach unnecessary part of string value 
+        if (time1.checked) {
+             time1 = parseInt(time1.value.replace('-0900',''));// -0900 is removed from 0800-0900 and pass only 0800
+        }else{
+             time1 = 0;
+        }
+              
+
+        if(time2.checked){
+             time2 = parseInt(time2.value.replace('-1000',''));   
+        }else{
+             time2 = 0;
+        }
+
+
+        if(time3.checked){
+             time3 = parseInt(time3.value.replace('-1100',''));
+        }else{
+             time3 = 0;
+        }
+
+
+        if (time4.checked) {
+              time4 = parseInt(time4.value.replace('-1200','')); 
+        }else{
+             time4 = 0;
+        }
+
+               
+        if(time5.checked){
+             time5 = parseInt(time5.value.replace('-1300',''));  
+        }else{
+             time5 = 0;
+        }
+
+
+        if(time6.checked){
+             time6 = parseInt(time6.value.replace('-1400',''));    
+        }else{
+             time6 = 0;
+        }
+
+
+        if (time7.checked) {
+              time7 = parseInt(time7.value.replace('-1500',''));
+        }else{
+             time7 = 0;
+        }
+
+               
+        if(time8.checked){
+             time8 = parseInt(time8.value.replace('-1600',''));     
+        }else{
+             time8 = 0;
+        }
+
+
+        if(time9.checked){
+             time9 = parseInt(time9.value.replace('-1700',''));  
+        }else{
+             time9 = 0;
+        }
+
+
+        if(time10.checked){
+             time10 = parseInt(time10.value.replace('-1800',''));             
+        }else{
+             time10 = 0;
+        }
+
+        // validate whether user select time duration or not
+        if(time1 || time2 || time3 || time4 || time5 || time6 || time7 || time8 || time9 || time10 != 0){
+
+        // initialize variables for peak time calculations
+        let foreignAdultChargeInPeak = 0;
+        let foreignChildChargrInPeak = 0;
+        let localAdultCargeInPeak = 0;
+        let localChildChargeInPeak = 0;
+
+        // initialize variables for normal time calculations
+        let foreignAdultChargeInNormal = 0;
+        let foreignChildChargrInNormal = 0;
+        let localAdultCargeInNormal =  0;
+        let localChildChargeInNormal = 0;
+
+        var fullPayment = 0;// To store full payment of user booking.
+
+        let variableCountInPeak = 0;// To store number of peak times that selected by the user 
+
+        let variableCountInnormal = 0; // To store number of normal times that selected by the user 
+
+       
+        // This section is for calculating total peak times that selected by the user.
+        if (time3 != 0) {
+             variableCountInPeak++;
+        }else{
+             variableCountInPeak = variableCountInPeak;
+        }
+
+    
+        if (time4 != 0) {
+            variableCountInPeak++; 
+        }else{
+            variableCountInPeak = variableCountInPeak;   
+        }
+
+        if (time8 != 0) {
+            variableCountInPeak++;
+        }else{
+            variableCountInPeak = variableCountInPeak;
+        }
+
+        if (time9 != 0) {
+            variableCountInPeak++;
+        }else{
+            variableCountInPeak = variableCountInPeak;
+        }
+
+        if (time10 != 0) {
+           variableCountInPeak++;
+        }else{
+           variableCountInPeak = variableCountInPeak;
+        }
+
+        console.log("Peak :"+variableCountInPeak);
+
+
+        // This section is for calculating total normal times that selected by the user.
+        if (time1 != 0) {
+             variableCountInnormal++;
+        }else{
+             variableCountInnormal = variableCountInnormal;
+        }
+
+    
+        if (time2 != 0) {
+            variableCountInnormal++; 
+        }else{
+            variableCountInnormal = variableCountInnormal;   
+        }
+
+
+        if (time5 != 0) {
+            variableCountInnormal++;
+        }else{
+            variableCountInnormal = variableCountInnormal;
+        }
+
+
+        if (time6 != 0) {
+            variableCountInnormal++;
+        }else{
+            variableCountInnormal = variableCountInnormal;
+        }
+
+
+        if (time7 != 0) {
+           variableCountInnormal++;
+        }else{
+           variableCountInnormal = variableCountInnormal;
+        }
+
+        console.log("Normal : "+variableCountInnormal);
+
+        //Calculate chargers according to users selected time periods and number of visitors in peak time. 
+        if(time3 || time4 || time8 || time9 || time10 != 0){            
+
+            foreignAdultChargeInPeak = foreignAdult*13*variableCountInPeak;
+            foreignChildChargrInPeak = foreignChild*8*variableCountInPeak;
+            localAdultCargeInPeak = localAdult*6*variableCountInPeak;
+            localChildChargeInPeak = localChild*3*variableCountInPeak;
+        }
+
+        //Calculate chargers according to users selected time periods and number of visitors in normal time. 
+        if(time1 || time2 || time5 || time6 || time7 != 0){
+
+            foreignAdultChargeInNormal = foreignAdult*10*variableCountInnormal;
+            foreignChildChargrInNormal = foreignChild*5*variableCountInnormal;
+            localAdultCargeInNormal = localAdult*4*variableCountInnormal;
+            localChildChargeInNormal = localChild*2*variableCountInnormal; 
+
+        }
+
+        // calculate full payment of the user booking 
+        fullPayment = foreignAdultChargeInPeak + foreignChildChargrInPeak + localAdultCargeInPeak + localChildChargeInPeak + foreignAdultChargeInNormal + foreignChildChargrInNormal + localAdultCargeInNormal + localChildChargeInNormal; 
+
+
+        //summery table
+
+        //Creating table row
+        let tr = document.createElement('tr');
+
+        //Creating table column
+        let td1 = tr.appendChild(document.createElement('td'));
+        let td2 = tr.appendChild(document.createElement('td'));
+        let td3 = tr.appendChild(document.createElement('td'));
+        let td4 = tr.appendChild(document.createElement('td'));
+
+        td1.innerHTML = date;
+        td2.innerHTML = allVisiters;
+        td3.innerHTML = listArray;
+        td4.innerHTML = fullPayment +" $";
+
+        //Add all values to table
+        document.getElementById('customers').appendChild(tr);
+
+        //Store full payment value in local storage to deliver it to details.html page
+        localStorage.setItem("payment",fullPayment);
+
+
+            // display an error message when time field is empty
+            }else{
+                document.getElementById("timeError").innerHTML = "This field is required !"
+            }
+
+            // display an error message when head cound field is empty
+            }else{
+                document.getElementById("headCountError").innerHTML = "This field is required !"
+            }
+
+            // display an error message when date field is empty
+            }else{
+
+                document.getElementById("dateError").innerHTML = "This field is required !"
+            }
+
+            // Countinue payment button is already disabled by html. When store value in (except 0) full payment variable, 
+            // below code snippet will enable the button   
+            if(fullPayment != 0){
+                document.getElementById('payment').disabled = false;
+            }else{
+                document.getElementById('payment').disabled = true;
+            }
+
+          
+    }
+
+
+
+            
+        </script>
+
+        <style>
+
+            #customers {
+              font-family: Arial, Helvetica, sans-serif;
+              border-collapse: collapse;
+              width: 100%;
+            }
+
+            #customers td, #customers th {
+              border: 1px solid #ddd;
+              padding: 8px;
+            }
+
+            /*#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+            #customers tr:hover {background-color: #ddd;}*/
+
+            #customers th {
+              padding-top: 12px;
+              padding-bottom: 12px;
+              text-align: left;
+              /*background-color: #04AA6D;*/
+              color: white;
+            }
+
+            p{
+                color: white;
+            }
+
+            h4{
+                color: red;
+            }
+    </style>
+
+
+    </head>
+    <body>
+        
+        <img id="ticketsbg" src="images/background2.png" alt="tickets">
+        
+        <!--Ticket Booking-->
+    <div class="buytic">
+            <h1>Buy Ticket</h1>
+        </div>
+       
+           <form method="POST" name="sample">
+            <!--date-->
+            <div class="booking1">
+            <fieldset>
+                <legend><h3>When are you coming?</h3></legend>
+                <input type="date" id="calendar" name="calendar">
+                <h4 id="dateError"></h4>
+            </fieldset>
+
+            <!--The headcount-->
+            <fieldset>
+                <legend><h3>The Headcount</h3></legend>
+                <br><label for="sl adult">SL Adult(Above 15 yrs)</label>
+                <div class="count">
+                    <span class="plus">+</span>
+                    <span class ="number" id="localAdult">00</span>
+                    <span class ="min">-</span>
+                </div>
+
+                <br><label for="sl child">SL Child(5 to 14 Yrs)</label>
+                <div class="count">
+                    <span class ="plus1">+</span>
+                    <span class ="number1" id="localChild" >00</span>
+                    <span class ="min1">-</span>
+                </div>
+    
+                <br><label for="foreign adult">Foreign Adult(Above 15 Yrs)</label>
+                <div class="count">
+                    <span class ="plus2">+</span>
+                    <span class ="number2" id="foreignAdult">00</span>
+                    <span class ="min2">-</span>
+                </div>
+
+                <br><label for="foreign child">Foreign Child(5 to 14 Yrs)</label>
+                <div class="count">
+                    <span class ="plus3">+</span>
+                    <span class ="number3" id="foreignChild">00</span>
+                    <span class ="min3">-</span>
+                </div>
+    
+                <br><label for="infants">Infants(Under 4 Yrs)</label>
+                <div class="count">
+                    <span class ="plus4">+</span>
+                    <span class ="number4" id="infant">00</span>
+                    <span class ="min4">-</span>
+                </div>
+                <h4 id="headCountError"></h4>
+            </fieldset>
+
+
+        <script type="text/javascript">
+
+            // initialize variable to store head count according to user's click on plus mark or minus mark 
+            let plus;
+            let minus;
+
+             // store plus element of head count section
+             plus = document.querySelector(".plus");
+             // store minus element of head count section
+             minus = document.querySelector(".min");
+             //store number element in variable
+            let num = document.querySelector(".number");
+            //initialize a for store current head count
+            let a = 0;
+
+            //When click on plus sign, this part will increase a's value by 1 in each time
+            plus.addEventListener("click", ()=>{
+                a++;
+                a = (a < 10) ? "0" + a : a;
+                num.innerHTML = a;
+            });
+
+            //When click on plus sign this part will decrease a's value by 1 in each time
+            minus.addEventListener("click", ()=>{
+                if(a > 0){
+                    a--;
+                    a = (a < 10) ? "0" + a : a;
+                    num.innerHTML = a;
+                }
+            });
+
+             plus = document.querySelector(".plus1");
+             minus = document.querySelector(".min1");
+            let num1 = document.querySelector(".number1");
+            let a1 = 0;
+
+            plus.addEventListener("click", ()=>{
+                a1++;
+                a1 = (a1 < 10) ? "0" + a1 : a1;
+                num1.innerHTML = a1;
+            });
+
+            minus.addEventListener("click", ()=>{
+                if(a1 > 0){
+                    a1--;
+                    a1 = (a1 < 10) ? "0" + a1 : a1;
+                    num1.innerHTML = a1;
+                }
+            });
+
+            plus = document.querySelector(".plus2");
+            minus = document.querySelector(".min2");
+            let num2 = document.querySelector(".number2");
+            let a2 = 0;
+
+            plus.addEventListener("click", ()=>{
+                a2++;
+                a2 = (a2 < 10) ? "0" + a2 : a2;
+                num2.innerHTML = a2;
+            });
+
+            minus.addEventListener("click", ()=>{
+                if(a2 > 0){
+                    a2--;
+                    a2 = (a2 < 10) ? "0" + a2 : a2;
+                    num2.innerHTML = a2;
+                }
+            });
+
+            plus = document.querySelector(".plus3");
+            minus = document.querySelector(".min3");
+            let num3 = document.querySelector(".number3");
+            let a3 = 0;
+
+            plus.addEventListener("click", ()=>{
+                a3++;
+                a3 = (a3 < 10) ? "0" + a3 : a3;
+                num3.innerHTML = a3;
+            });
+
+            minus.addEventListener("click", ()=>{
+                if(a3 > 0){
+                    a3--;
+                    a3 = (a3 < 10) ? "0" + a3 : a3;
+                    num3.innerHTML = a3;
+                }
+            });
+
+
+            plus = document.querySelector(".plus4");
+            minus = document.querySelector(".min4");
+            let num4 = document.querySelector(".number4");
+            let a4 = 0;
+
+            plus.addEventListener("click", ()=>{
+                a4++;
+                a4 = (a4 < 10) ? "0" + a4 : a4;
+                num4.innerHTML = a4;
+            });
+
+            minus.addEventListener("click", ()=>{
+                if(a4 > 0){
+                    a4--;
+                    a4 = (a4 < 10) ? "0" + a4 : a4;
+                    num4.innerHTML = a4;
+                }
+            });
+
+
+
+        </script>
+           
+
+            <!--Duration-->
+<fieldset>
+    <br><legend><h3>Duration</h3></legend>
+    <p>
+        Select your Duration:
+    </p>
+    <div class="times">
+        <label><input type="checkbox" class="hour" value="0800-0900" id="time1">08.00 am - 09.00 am</label><br><br>
+        <label><input type="checkbox" class="hour" value="0900-1000" id="time2">09.00 am - 10.00 am</label><br><br>
+        <label><input type="checkbox" class="hour" value="1000-1100" id="time3">10.00 am - 11.00 am(Peak)</label><br><br>
+        <label><input type="checkbox" class="hour" value="1100-1200" id="time4">11.00 am - 12.00 am(Peak)</label><br><br>
+        <label><input type="checkbox" class="hour" value="1200-1300" id="time5">12.00 am - 1.00 am</label><br><br>
+        <label><input type="checkbox" class="hour" value="1300-1400" id="time6">1.00 am - 2.00 am</label><br><br>
+        <label><input type="checkbox" class="hour" value="1400-1500" id="time7">2.00 am - 3.00 am</label><br><br>
+        <label><input type="checkbox" class="hour" value="1500-1600" id="time8">3.00 am - 4.00 am(Peak)</label><br><br>
+        <label><input type="checkbox" class="hour" value="1600-1700" id="time9">4.00 am - 5.00 am(Peak)</label><br><br>
+        <label><input type="checkbox" class="hour" value="1700-1800" id="time10">5.00 am - 6.00 am(Peak)</label><br><br>
+
+        
+    </div>
+
+     <div class="print">
+        <p class="text">You Have Selected: <span id="value"></span></p>
+      </div>
+
+      <h4 id="timeError"></h4>
+
+    <script type="text/javascript">
+
+        // find and store element in variable for display to user's selected time periods  
+        var value = document.getElementById('value')
+        // initialize an array to store all check boxes values
+        var listArray = []
+        // find and store all checkboxes in a variable    
+        var checkboxes = document.querySelectorAll('.hour')
+        // for each loop for get and store all user's selections in an array.
+        checkboxes.forEach((hour) => {
+        hour.addEventListener('click', function () {
+
+        if (this.checked === true) {
+          listArray.push(this.value)
+          value.textContent = listArray.join(' & ')
+
+        } else {
+          listArray = listArray.filter((a) => a !== this.value)
+          value.textContent = listArray.join(' & ')
+
+        }
+     })
+})
+
+
+    </script>
+
+    <div class="button">
+          <input type="button" name="add" id="button" value="Add Data" onclick="addToSummeryTable();" class="btn btn-success">
+    </div>
+
+      
+</fieldset>
+
+<fieldset>
+    <br><legend><h3>Charges per Hour(1 hour based)</h3></legend>
+    <table class="payments">
+        <thead>
+            <tr>
+                <th>Hours</th>
+                <th>Guests</th>
+                <th>Charges</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Normal hours</td>
+                <td>Foreign Adult<br>Foreign Child</td>
+                <td>10 USD<br>&nbsp 5 USD</td>
+            </tr>
+            <tr>
+                <td>Peak hours<br>&nbsp (10.00 am to 1.00 pm)<br>&nbsp(3.00 pm to 6.00 pm)</td>
+                <td>Foreign Adult<br>Foreign Child</td>
+                <td>13 USD<br>&nbsp 8 USD</td>
+            </tr>
+            <tr>
+                <td>Normal hours</td>
+                <td>SL Adult<br>SL Child</td>
+                <td>&nbsp 4 USD<br>&nbsp 2 USD</td>
+            </tr>
+            <tr>
+                <td>Peak hours<br>&nbsp(10.00 am to 1.00 pm)<br>&nbsp(3.00 pm to 6.00 pm)</td>
+                <td>SL Adult<br>SL Child</td>
+                <td>&nbsp 6 USD<br>&nbsp 8 USD</td>
+            </tr>
+            
+            <tr>
+                <td>Normal hours/ Peak hours</td>
+                <td>SL Infants/ Foreign Infants</td>
+                <td>Free</td>
+            </tr>
+        </tbody>
+    </table>
+</form>
+</fieldset>
+
+<!--summary table-->
+
+<fieldset>
+
+<br><legend><h3>Summary Table</h3><br></legend>
+
+<table id="customers">
+    
+    <thead>
+        <tr>
+            <td>Date</td>
+            <td>Headcount</td>
+            <td>Your time</td>
+            <td>charges</td>
+        </tr>
+    </thead>
+
+    <tbody>
+       
+    </tbody>
+
+</table> 
+</br> 
+
+</fieldset>
+
+
+
+
+</form>
+
+<!--Purchase-->
+<!-- <div class="button">
+    <button class="btn1" onclick="redirectToDetailsPage()">Continue</button>
+ -->
+</div> 
+
+
+</div>
+
+<form action="details.html">
+    <br>
+
+    <div onclick="message()">
+
+        <button id="payment" class="btn1" disabled>Continue with Payments</button>
+    </div>
+    <h4 id="paymentError"></h4> 
+    
+</form>
+
+<script type="text/javascript">
+    
+    function message(){
+        document.getElementById('paymentError').innerHTML = "This button is curruntly disabled because you didn't fill all fields";
+    }
+
+</script>
+
+    </body>
+</html>
+
